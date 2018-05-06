@@ -43,7 +43,7 @@ int base64_encode(char *output, char *input, int inputLen) {
 			output[encLen++] = '=';
 		}
 	}
-	output[encLen] = '\0';
+	output[encLen] = '\0';  // adding \0 as string end
 	return encLen;
 }
 
@@ -89,18 +89,19 @@ int base64_decode(char * output, char * input, int inputLen) {
 			output[decLen++] = a3[j];
 		}
 	}
-	output[decLen] = '\0';
+	output[decLen] = '\0';  // adding \0 as string end
 	return decLen;
 }
 
 int base64_enc_len(int plainLen) {
-	int n = plainLen;
+	int n = plainLen-1;
 	return (n + 2 - ((n + 2) % 3)) / 3 * 4;
 }
 
 int base64_dec_len(char * input, int inputLen) {
 	int i = 0;
 	int numEq = 0;
+
 	for(i = inputLen - 1; input[i] == '='; i--) {
 		numEq++;
 	}
